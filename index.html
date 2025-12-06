@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>谁是卧底</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🕵️ 谁是卧底</h1>
+        
+        <!-- 设置阶段 -->
+        <div id="setup-screen" class="screen active">
+            <div class="form-group">
+                <label for="player-count">👥 玩家人数 (3-20):</label>
+                <input type="number" id="player-count" min="3" max="20" value="6" inputmode="numeric">
+            </div>
+            <div class="form-group">
+                <label for="spy-count">🎭 卧底人数:</label>
+                <input type="number" id="spy-count" min="1" max="5" value="1" inputmode="numeric">
+            </div>
+            <div class="form-group">
+                <label>📝 词语设置:</label>
+                <div class="radio-group">
+                    <input type="radio" name="word-mode" id="mode-random" value="random" checked>
+                    <label for="mode-random">🎲 随机词库</label>
+                    <input type="radio" name="word-mode" id="mode-custom" value="custom">
+                    <label for="mode-custom">✍️ 自定义</label>
+                </div>
+            </div>
+            <div id="custom-words-input" class="hidden">
+                <input type="text" id="word-civilian" placeholder="平民词 (例如: 饺子)">
+                <input type="text" id="word-spy" placeholder="卧底词 (例如: 包子)">
+            </div>
+            <button id="start-btn" class="btn-primary">🚀 开始发牌</button>
+        </div>
+
+        <!-- 传递阶段 (如：请玩家1查看) -->
+        <div id="pass-screen" class="screen hidden">
+            <div class="card">
+                <div style="font-size: 60px; margin-bottom: 20px;">📱</div>
+                <h2 id="pass-instruction">请玩家 1 查看身份</h2>
+                <p class="warning">⚠️ 请确保周围没有其他人偷看</p>
+                <button id="view-btn" class="btn-primary">👀 查看身份</button>
+            </div>
+        </div>
+
+        <!-- 查看阶段 (显示词语) -->
+        <div id="view-screen" class="screen hidden">
+            <div class="card">
+                <h2>你的身份是</h2>
+                <div class="word-card-content">
+                    <div id="role-image" class="role-image"></div>
+                    <div id="role-word" class="word-display">???</div>
+                </div>
+                <p id="role-desc" class="role-desc">🤫 记住你的词语！</p>
+                <button id="confirm-btn" class="btn-primary">✅ 记住了，传给下一位</button>
+            </div>
+        </div>
+
+        <!-- 游戏主界面 (列表与投票) -->
+        <div id="game-screen" class="screen hidden">
+            <div class="game-info">
+                <p>🟢 平民: <span id="civilian-alive">0</span> | 🔴 卧底: <span id="spy-alive">0</span></p>
+            </div>
+            <div id="player-list" class="player-list">
+                <!-- 动态生成玩家列表 -->
+            </div>
+            <p class="instruction">👇 点击玩家头像进行投票处决</p>
+            <button id="restart-btn-game" class="btn-secondary">🔄 重新开始</button>
+        </div>
+
+        <!-- 结算界面 -->
+        <div id="result-screen" class="screen hidden">
+            <div style="font-size: 60px; margin-bottom: 10px;">🏆</div>
+            <h2 id="winner-title">平民胜利!</h2>
+            <div id="result-details" class="result-list"></div>
+            <button id="home-btn" class="btn-primary">🏠 回到首页</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
